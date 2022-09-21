@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../domain/product.dart';
 import '../controllers/shopping_controller.dart';
 import '../widgets/banner.dart';
+import '../widgets/customTitleText.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({Key? key}) : super(key: key);
@@ -24,16 +25,14 @@ class _ProductListState extends State<ProductList> {
             Stack(
               children: [const CustomBanner(50), customAppBar()],
             ),
-            // aquí debemos rodear el widget Expanded en un Obx para
-            // observar los cambios en la lista de entries del shoppingController
             Obx(() => Expanded(
-              child: ListView.builder(
-                  padding: const EdgeInsets.all(8),
-                  itemCount: shoppingController.entries.length,
-                  itemBuilder: (context, index) {
-                    return _row(shoppingController.entries[index], index);
-                  }),
-            ))
+                  child: ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: shoppingController.entries.length,
+                      itemBuilder: (context, index) {
+                        return _row(shoppingController.entries[index], index);
+                      }),
+                ))
           ],
         ),
       ),
@@ -49,8 +48,9 @@ class _ProductListState extends State<ProductList> {
           child: GestureDetector(
             onTap: () => Get.back(),
             child: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
+              Icons.arrow_back_ios_new,
+              color: Colors.black,
+              size: 30,
             ),
           ),
         )
@@ -66,38 +66,48 @@ class _ProductListState extends State<ProductList> {
     return Card(
       margin: const EdgeInsets.all(4.0),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        Text(product.name),
-        Text(product.price.toString()),
         Column(
           children: [
-            IconButton(
-                onPressed: () {
-                  // aquí debemos llamar al método del controlador que
-                  // incrementa el número de unidades del producto
-                  // pasandole el product.id
-                  shoppingController.agregarProducto(product.id);
-                },
-                icon: const Icon(Icons.arrow_upward)),
-            IconButton(
-                onPressed: () {
-                  // aquí debemos llamar al método del controlador que
-                  // disminuye el número de unidades del producto
-                  // pasandole el product.id
-                  shoppingController.quitarProducto(product.id);
-                },
-                icon: const Icon(Icons.arrow_downward))
+            const Padding(
+                padding: EdgeInsets.only(bottom: 15),
+                child: CartColumnTittle(title: "Product")),
+            Text(product.name),
           ],
         ),
         Column(
           children: [
             const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text("Quantity"),
+                padding: EdgeInsets.only(bottom: 15),
+                child: CartColumnTittle(title: "Price")),
+            Text(product.price.toString()),
+          ],
+        ),
+        Column(
+          children: [
+            IconButton(
+                onPressed: () {
+                  shoppingController.agregarProducto(product.id);
+                },
+                icon: const Icon(Icons.add),
+                color: Colors.green,
+                iconSize: 25),
+            IconButton(
+              onPressed: () {
+                shoppingController.quitarProducto(product.id);
+              },
+              icon: const Icon(Icons.remove),
+              color: Colors.red,
+              iconSize: 25,
+            )
+          ],
+        ),
+        Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(bottom: 15),
+              child: CartColumnTittle(title: "Quantity"),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(product.quantity.toString()),
-            ),
+            Text(product.quantity.toString()),
           ],
         )
       ]),

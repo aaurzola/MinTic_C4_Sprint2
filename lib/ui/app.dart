@@ -1,5 +1,8 @@
+import 'package:f_shopping_app_r2_template/ui/pages/product_list.dart';
+import 'package:f_shopping_app_r2_template/ui/widgets/cart_total.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'pages/home_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -13,9 +16,37 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Scaffold(
-        body: HomePage(),
+      home: Scaffold(
+        appBar: AppBar(backgroundColor: Colors.blueGrey, title: CartTotal()),
+        body: const Center(child: HomePage()),
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.black,
+          backgroundColor: Colors.blueGrey,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+              ),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.shopping_cart,
+              ),
+              label: 'Cart',
+            ),
+          ],
+          onTap: _switchWindow,
+        ),
       ),
     );
+  }
+
+  void _switchWindow(int index) {
+    print(index);
+    if (index == 1) {
+      Get.to(() => const ProductList(), transition: Transition.fadeIn);
+    }
   }
 }
