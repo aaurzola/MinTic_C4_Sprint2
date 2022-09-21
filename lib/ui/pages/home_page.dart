@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Widgets/banner.dart';
-import '../Widgets/cart_total.dart';
+import '../widgets/cart_total.dart';
+import '../widgets/banner.dart';
 import 'product_list.dart';
 
 class HomePage extends StatelessWidget {

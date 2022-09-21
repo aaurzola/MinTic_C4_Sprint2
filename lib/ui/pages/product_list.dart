@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../domain/product.dart';
-import '../Widgets/banner.dart';
 import '../controllers/shopping_controller.dart';
+import '../widgets/banner.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({Key? key}) : super(key: key);
@@ -24,17 +24,16 @@ class _ProductListState extends State<ProductList> {
             Stack(
               children: [const CustomBanner(50), customAppBar()],
             ),
-            // TODO
             // aquí debemos rodear el widget Expanded en un Obx para
             // observar los cambios en la lista de entries del shoppingController
-            Expanded(
+            Obx(() => Expanded(
               child: ListView.builder(
                   padding: const EdgeInsets.all(8),
                   itemCount: shoppingController.entries.length,
                   itemBuilder: (context, index) {
                     return _row(shoppingController.entries[index], index);
                   }),
-            )
+            ))
           ],
         ),
       ),
@@ -73,18 +72,18 @@ class _ProductListState extends State<ProductList> {
           children: [
             IconButton(
                 onPressed: () {
-                  // TODO
                   // aquí debemos llamar al método del controlador que
                   // incrementa el número de unidades del producto
                   // pasandole el product.id
+                  shoppingController.agregarProducto(product.id);
                 },
                 icon: const Icon(Icons.arrow_upward)),
             IconButton(
                 onPressed: () {
-                  // TODO
                   // aquí debemos llamar al método del controlador que
                   // disminuye el número de unidades del producto
                   // pasandole el product.id
+                  shoppingController.quitarProducto(product.id);
                 },
                 icon: const Icon(Icons.arrow_downward))
           ],
