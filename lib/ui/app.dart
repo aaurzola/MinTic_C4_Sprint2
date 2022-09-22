@@ -20,15 +20,16 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(backgroundColor: Colors.blueGrey, title: CartTotal()),
         body: const Center(child: HomePage()),
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.black,
+          currentIndex: 0,
+          selectedItemColor: Colors.lime,
+          unselectedItemColor: Colors.white,
           backgroundColor: Colors.blueGrey,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.home,
+                Icons.store,
               ),
-              label: 'Home',
+              label: 'Store',
             ),
             BottomNavigationBarItem(
               icon: Icon(
@@ -44,7 +45,6 @@ class MyApp extends StatelessWidget {
   }
 
   void _switchWindow(int index) {
-    print(index);
     if (index == 1) {
       Get.to(() => const ProductList(), transition: Transition.fadeIn);
     }

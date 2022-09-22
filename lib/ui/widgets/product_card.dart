@@ -1,15 +1,21 @@
+import 'package:f_shopping_app_r2_template/ui/controllers/shopping_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ProductCard extends StatelessWidget {
+import '../../domain/product.dart';
+
+class ProductCard extends GetView<ShoppingController> {
   final String imgSource;
   final String productName;
   final int value;
+  final int id;
 
   const ProductCard({
     Key? key,
     required this.imgSource,
     required this.productName,
     required this.value,
+    required this.id,
   }) : super(key: key);
 
   @override
@@ -26,8 +32,11 @@ class ProductCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                child: const Text("ADD"),
-                onPressed: () => {print("add")},
+                child: const Text("Add to cart"),
+                onPressed: () => {
+                  controller
+                      .agregarNuevoProducto(Product(id, productName, value))
+                },
               ),
             ],
           )

@@ -13,8 +13,8 @@ class ShoppingController extends GetxController {
   void onInit() {
     super.onInit();
     // los dos elementos que vamos a tener en la tienda
-    entries.add(Product(0, "Toy car", 10));
-    entries.add(Product(1, "Toy house", 20));
+    // entries.add(Product(0, "Toy car", 10));
+    // entries.add(Product(1, "Toy house", 20));
   }
 
   void calcularTotal() {
@@ -26,8 +26,7 @@ class ShoppingController extends GetxController {
     total.value = newTotal;
   }
 
-  agregarProducto(id) {
-    logInfo('agregarProducto $id');
+  aumentarCantidadProducto(id) {
     // Encontrar el elemento usando el id, revisar el método firstWhere de la lista
     Product targetProduct = entries.firstWhere((element) => element.id == id);
     // después obtener el index de ese elemento, revisar el método indexOf de la lista
@@ -39,16 +38,46 @@ class ShoppingController extends GetxController {
     calcularTotal();
   }
 
+  agregarNuevoProducto(Product product) {
+    if (!entries.any((element) => element.id == product.id)) {
+      entries.add(product);
+    } else {
+      Product targetProduct =
+          entries.firstWhere((element) => element.id == product.id);
+      int targetIndex = entries.indexOf(targetProduct);
+      targetProduct.quantity += 1;
+      entries[targetIndex] = targetProduct;
+    }
+
+    // Product targetProduct =
+    //     entries.firstWhere((element) => element.id == product.id);
+    // int targetIndex = entries.indexOf(targetProduct);
+    // targetProduct.quantity += 1;
+    // entries[targetIndex] = targetProduct;
+
+    calcularTotal();
+  }
+
   quitarProducto(id) {
     logInfo('quitarProducto $id');
-    // similar a agregarProducto
-    // validar cuando la cantidad es igual a cero
     Product targetProduct = entries.firstWhere((element) => element.id == id);
     int targetIndex = entries.indexOf(targetProduct);
     if (targetProduct.quantity > 0) {
       targetProduct.quantity -= 1;
     }
     entries[targetIndex] = targetProduct;
+    calcularTotal();
+  }
+
+  void deleteAll() {
+    entries.clear();
+    calcularTotal();
+  }
+
+  void removeProduct(int id) {
+    Product targetProduct = entries.firstWhere((element) => element.id == id);
+    int targetIndex = entries.indexOf(targetProduct);
+    entries.removeAt(targetIndex);
     calcularTotal();
   }
 }

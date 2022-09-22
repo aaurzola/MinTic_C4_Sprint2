@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../domain/product.dart';
 import '../controllers/shopping_controller.dart';
-import '../widgets/banner.dart';
 import '../widgets/customTitleText.dart';
 
 class ProductList extends StatefulWidget {
@@ -22,9 +21,15 @@ class _ProductListState extends State<ProductList> {
       body: SafeArea(
         child: Column(
           children: [
-            Stack(
-              children: [const CustomBanner(50), customAppBar()],
-            ),
+            AppBar(
+                backgroundColor: Colors.blueGrey,
+                leading: ElevatedButton(
+                  onPressed: () {
+                    shoppingController.deleteAll();
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                  child: Icon(Icons.delete_sweep),
+                )),
             Obx(() => Expanded(
                   child: ListView.builder(
                       padding: const EdgeInsets.all(8),
@@ -32,30 +37,38 @@ class _ProductListState extends State<ProductList> {
                       itemBuilder: (context, index) {
                         return _row(shoppingController.entries[index], index);
                       }),
-                ))
+                )),
+            BottomNavigationBar(
+              onTap: _switchWindow,
+              selectedItemColor: Colors.lime,
+              currentIndex: 1,
+              unselectedItemColor: Colors.white,
+              backgroundColor: Colors.blueGrey,
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.store,
+                  ),
+                  label: 'Store',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.shopping_cart,
+                  ),
+                  label: 'Cart',
+                ),
+              ],
+            )
           ],
         ),
       ),
     );
   }
 
-  Widget customAppBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
-            onTap: () => Get.back(),
-            child: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.black,
-              size: 30,
-            ),
-          ),
-        )
-      ],
-    );
+  void _switchWindow(int index) {
+    if (index == 0) {
+      Get.back();
+    }
   }
 
   Widget _row(Product product, int index) {
@@ -86,14 +99,18 @@ class _ProductListState extends State<ProductList> {
           children: [
             IconButton(
                 onPressed: () {
-                  shoppingController.agregarProducto(product.id);
+                  shoppingController.aumentarCantidadProducto(product.id);
                 },
                 icon: const Icon(Icons.add),
                 color: Colors.green,
                 iconSize: 25),
             IconButton(
               onPressed: () {
-                shoppingController.quitarProducto(product.id);
+                if (product.quantity == 1) {
+                  shoppingController.removeProduct(product.id);
+                } else {
+                  shoppingController.quitarProducto(product.id);
+                }
               },
               icon: const Icon(Icons.remove),
               color: Colors.red,
