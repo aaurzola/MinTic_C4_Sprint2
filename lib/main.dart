@@ -12,7 +12,6 @@ void main() {
       showColors: true,
     ),
   );
-  // agregar el ShoppingController al DI de Get
   Get.put(ShoppingController());
   runApp(const MyApp());
 }

@@ -27,8 +27,8 @@ class _ProductListState extends State<ProductList> {
                   onPressed: () {
                     shoppingController.deleteAll();
                   },
-                  style: ElevatedButton.styleFrom(primary: Colors.red),
-                  child: Icon(Icons.delete_sweep),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  child: const Icon(Icons.delete_sweep),
                 )),
             Obx(() => Expanded(
                   child: ListView.builder(
