@@ -14,5 +14,5 @@ Se han incluido las siguientes mejoras:
     <li>Si se agrega varias veces el mismo producto, se actualiza la cantidad de ese producto en la lista</li>
 </ul>
 
-<img src="https://github.com/aaurzola/MinTic-C4-Proyecto/blob/main/Sprint2_demo_.gif" width="300" />
+<img src="https://github.com/aaurzola/MinTic-C4-Proyecto/blob/main/Sprint2_demo.gif" width="300" />
 
