@@ -1,11 +1,18 @@
-Proyecto base para el segundo reto
+# Reto # 2
 
-El código incluye comentarios que explican la estructura del proyecto y los puntos en los que se tiene que trabajar están marcados con un TODO.
+Propuesta solucion para Sprint #2
 
-El siguiente es un demo de la interfaz a la que se debe llegar (funcionalidades adicionales o mejoras a la interfaz son permitidas):
+El código incluye los requerimientos minimos encontrados en los TODOs.
 
-![shoppingApp](https://user-images.githubusercontent.com/4458129/173839525-218900ed-9bcd-4f6f-9158-0b02dd9d7707.gif)
+Se han incluido las siguientes mejoras:
+<br>
+<ul>
+    <li>La pagina principal ha sido reemplazada por una simulacion de una venta online de zapatos</li>
+    <li>Cada producto se puede agregar al carrito de compras</li>
+    <li>Una vez agregado el producto se actualiza el estado del valor total del carrito de compras y
+        los elementos del carrito de compras en otra vista</li>
+    <li>Si se agrega varias veces el mismo producto, se actualiza la cantidad de ese producto en la lista</li>
+</ul>
 
-Solución:
+<img src="https://github.com/aaurzola/MinTic-C4-Proyecto/blob/main/Sprint1_demo_G2.gif" width="300" />
 
-https://github.com/MisionTIC4b/f_shopping_app
